@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextapp
+  labels:
+    app: nextapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nextapp
+  template:
+    metadata:
+      labels:
+        app: nextapp
+    spec:
+      containers:
+        - name: nextapp
+          image: localhost:5000/nextapp:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+          # If using private registry, add imagePullSecrets
+          # imagePullSecrets:
+          #   - name: regcred
